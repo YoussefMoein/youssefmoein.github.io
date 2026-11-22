@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Youssef Moein · Data Science & Applied AI</title>
+<meta name="description" content="Youssef Moein: Data Science student at MacEwan University building forecasting, anomaly detection and AI analytics tools, and the production app a pharmacy team runs on daily.">
+<meta property="og:title" content="Youssef Moein · Data Science & Applied AI">
+<meta property="og:description" content="Forecasting, predictive maintenance, anomaly detection, AI agents with guardrails, and a production app used daily.">
+<meta property="og:image" content="img/forecast.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231F3864'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' fill='%23fff' text-anchor='middle'%3EYM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#ffffff; --ink:#16181d; --muted:#5b616e; --line:#e4e0d6;
+  --accent:#1f3864; --accent-2:#c2532a; --chip:#eef1f7; --shadow:0 1px 2px rgba(20,20,30,.05),0 8px 24px rgba(20,20,30,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1115; --surface:#171a21; --ink:#eceef2; --muted:#9aa1ae; --line:#272b35;
+    --accent:#8fb0ec; --accent-2:#ef8a5f; --chip:#1e2330; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1115; --surface:#171a21; --ink:#eceef2; --muted:#9aa1ae; --line:#272b35;
+  --accent:#8fb0ec; --accent-2:#ef8a5f; --chip:#1e2330; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.01em;line-height:1.15;margin:0}
+
+/* nav */
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.brand{font-family:Fraunces,serif;font-weight:600;font-size:18px;color:var(--ink)}
+.navlinks{display:flex;gap:22px;align-items:center;font-size:14px}
+.navlinks a{color:var(--muted)}
+.navlinks a:hover{color:var(--ink);text-decoration:none}
+#theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:15px}
+
+/* hero */
+.hero{padding:72px 0 56px;display:grid;grid-template-columns:1.5fr 1fr;gap:56px;align-items:center}
+.eyebrow{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);font-weight:600;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.dot{width:8px;height:8px;border-radius:50%;background:#2e9e5b;box-shadow:0 0 0 4px color-mix(in srgb,#2e9e5b 22%,transparent)}
+.hero h1{font-size:clamp(40px,6vw,64px)}
+.hero h1 span{color:var(--accent)}
+.lede{font-size:19px;color:var(--muted);margin:20px 0 28px;max-width:34em}
+.lede strong{color:var(--ink);font-weight:600}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:10px;font-weight:500;font-size:15px;border:1px solid var(--line);color:var(--ink);background:var(--surface)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}
+.btn{transition:transform .15s}
+.portrait{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:linear-gradient(145deg,var(--accent),color-mix(in srgb,var(--accent) 55%,var(--accent-2)));box-shadow:var(--shadow);max-width:360px;justify-self:end;width:100%}
+.portrait img{width:100%;height:100%;object-fit:cover}
+.portrait .mono-ini{position:absolute;inset:0;display:grid;place-items:center;font-family:Fraunces,serif;font-size:110px;color:rgba(255,255,255,.92)}
+.portrait .tag{position:absolute;left:14px;right:14px;bottom:14px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(8px);border-radius:12px;padding:12px 14px;font-size:13.5px;color:var(--ink)}
+.portrait .tag b{display:block;font-weight:600}
+.portrait .tag span{color:var(--muted)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
+.stat{padding:22px 22px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat .n{font-family:Fraunces,serif;font-size:32px;font-weight:600;color:var(--accent)}
+.stat .l{font-size:13.5px;color:var(--muted);line-height:1.4;margin-top:4px}
+
+section{padding:72px 0 0}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:28px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.sec-head h2{font-size:30px}
+.sec-head .mono{font-size:12.5px;color:var(--muted);letter-spacing:.06em}
+
+/* featured */
+.feature{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:36px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.3fr 1fr;gap:40px}
+.kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-2);font-weight:600}
+.feature h3{font-size:30px;margin:10px 0 6px}
+.role{color:var(--muted);font-size:15px;margin-bottom:18px}
+.feature p{margin:0 0 14px}
+.feature ul{margin:0;padding-left:18px}
+.feature li{margin-bottom:8px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start}
+.metric{background:var(--chip);border-radius:14px;padding:16px}
+.metric .n{font-family:Fraunces,serif;font-size:28px;font-weight:600;color:var(--accent)}
+.metric .l{font-size:13px;color:var(--muted);line-height:1.35}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.chip{font-family:"JetBrains Mono",monospace;font-size:11.5px;background:var(--chip);color:var(--muted);padding:4px 9px;border-radius:6px}
+
+/* projects */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .2s, box-shadow .2s}
+.card:hover{transform:translateY(-3px)}
+.card .shot{aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--line);background:#fff}
+.card .shot img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.card .body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
+.card .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.card h3{font-size:22px;margin-bottom:10px}
+.card p{margin:0 0 12px;color:var(--ink)}
+.result{border-left:3px solid var(--accent-2);padding:2px 0 2px 12px;margin:4px 0 14px;font-size:15px}
+.result b{color:var(--accent)}
+details{border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
+summary{cursor:pointer;font-size:14px;font-weight:500;color:var(--accent);list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+ ";font-family:"JetBrains Mono",monospace}
+details[open] summary::before{content:"– "}
+details dl{margin:12px 0 0;font-size:14.5px}
+details dt{font-weight:600;margin-top:10px}
+details dd{margin:2px 0 0;color:var(--muted)}
+.links{display:flex;gap:16px;margin-top:16px;font-size:14px;font-weight:500}
+.note{font-size:12.5px;color:var(--muted);margin-top:10px}
+
+.small-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.mini{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px}
+.mini h3{font-size:20px;margin:8px 0 8px}
+.mini p{margin:0;color:var(--muted);font-size:15px}
+
+/* about */
+.about{display:grid;grid-template-columns:1.2fr 1fr;gap:48px}
+.about p{margin:0 0 16px;font-size:17px}
+.timeline{list-style:none;margin:0;padding:0}
+.timeline li{padding:0 0 18px 20px;border-left:2px solid var(--line);position:relative}
+.timeline li::before{content:"";position:absolute;left:-6px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.timeline .when{font-size:12.5px;color:var(--muted)}
+.timeline .what{font-weight:600}
+.timeline .where{color:var(--muted);font-size:14.5px}
+.skills{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.skills div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.skills h4{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-2)}
+.skills p{margin:0;font-size:14.5px;color:var(--muted)}
+
+/* contact */
+.contact{margin:72px 0 0;background:var(--accent);color:var(--bg);border-radius:24px;padding:48px;display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
+.contact h2{font-size:34px;color:var(--bg)}
+.contact p{margin:10px 0 0;opacity:.85;max-width:32em}
+.contact .btn{background:var(--bg);color:var(--accent);border-color:var(--bg)}
+.contact .btn.ghost{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 50%,transparent)}
+footer{padding:36px 0 48px;color:var(--muted);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:860px){
+  .hero,.feature,.about{grid-template-columns:1fr}
+  .hero{padding:44px 0 40px;gap:32px}
+  .portrait{justify-self:start;max-width:220px;order:-1}
+  .grid,.small-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .skills{grid-template-columns:1fr 1fr}
+  .feature{padding:24px}
+  .contact{padding:32px 24px}
+  .navlinks a.hide-sm{display:none}
+}
+@media (max-width:480px){
+  .wrap{padding:0 16px}
+  .skills{grid-template-columns:1fr}
+  .stat .n{font-size:26px}
+  .navlinks{gap:14px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="#top">Youssef Moein</a>
+  <div class="navlinks">
+    <a href="#work">Work</a>
+    <a href="#projects" class="hide-sm">Projects</a>
+    <a href="#about" class="hide-sm">About</a>
+    <a href="Youssef_Moein_Resume.pdf">Resume</a>
+    <button id="theme" aria-label="Toggle dark mode" title="Toggle theme">◐</button>
+  </div>
+</div></nav>
+
+<main class="wrap" id="top">
+  <header class="hero">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>Open to Summer 2027 internships &amp; 12–18 month co-ops</div>
+      <h1>I build data tools that <span>people actually use.</span></h1>
+      <p class="lede">I'm a <strong>Data Science student at MacEwan University</strong> working on forecasting, predictive maintenance, anomaly detection and AI agents with guardrails. I also built and run <strong>CareFlow</strong>, the operations app a pharmacy team uses every day.</p>
+      <div class="btns">
+        <a class="btn primary" href="#work">See my work →</a>
+        <a class="btn" href="Youssef_Moein_Resume.pdf">Resume (PDF)</a>
+        <a class="btn" href="https://github.com/YoussefSabry2005">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/youssef-sabry22">LinkedIn</a>
+      </div>
+    </div>
+    <div class="portrait">
+      <img src="img/photo.jpg" alt="Portrait of Youssef Moein" onerror="this.remove()">
+      <div class="mono-ini" aria-hidden="true">YM</div>
+      <div class="tag"><b>Edmonton, AB</b><span>Open to Calgary &amp; Toronto · BSc Data Science, 2028</span></div>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="n">151</div><div class="l">invoices processed by CareFlow in its first 23 days</div></div>
+    <div class="stat"><div class="n">404k</div><div class="l">real well-months forecast from public regulatory data</div></div>
+    <div class="stat"><div class="n">49%</div><div class="l">lower error than the naive baseline at 6 months ahead</div></div>
+    <div class="stat"><div class="n">400+</div><div class="l">automated tests across my projects</div></div>
+  </div>
+
+  <section id="work">
+    <div class="sec-head"><h2>Featured work</h2><span class="mono">IN PRODUCTION · USED DAILY</span></div>
+    <article class="feature">
+      <div>
+        <div class="kicker">Operations Analyst &amp; Developer · Town &amp; Country Pharmacy · Apr 2025 – Present</div>
+        <h3>CareFlow</h3>
+        <div class="role">Sole builder of the platform a home-care team runs on, live at <a href="https://home-care.life">home-care.life</a></div>
+        <p>The Home Care team was tracking 500+ products on paper and invoicing by hand. Nobody asked me to fix it. I built CareFlow anyway, rolled it out to the staff, and I still own and maintain it.</p>
+        <ul>
+          <li>Inventory, customers, invoicing and billing in one place, with portals for staff, technicians, providers and the owner.</li>
+          <li>Full-stack TypeScript: React with TanStack Start, PostgreSQL (Supabase) with Drizzle ORM and row-level security, deployed on Cloudflare Workers.</li>
+          <li>Shipped as reviewed pull requests with automated tests and security hardening, using an AI-native workflow (Claude Code) where every change is tested.</li>
+          <li>I also run the daily billing audits and data validation, in a regulated healthcare setting.</li>
+        </ul>
+        <div class="chips"><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">PostgreSQL</span><span class="chip">Supabase</span><span class="chip">Drizzle</span><span class="chip">Cloudflare Workers</span><span class="chip">Row-level security</span></div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="n">151</div><div class="l">invoices in the first 23 days, across 4 staff</div></div>
+        <div class="metric"><div class="n">563</div><div class="l">SKUs tracked (previously on paper)</div></div>
+        <div class="metric"><div class="n">2,400+</div><div class="l">commits shipped</div></div>
+        <div class="metric"><div class="n">67</div><div class="l">test files</div></div>
+        <div class="metric"><div class="n">60+</div><div class="l">screens across 4 portals</div></div>
+        <div class="metric"><div class="n">145</div><div class="l">customer records managed</div></div>
+      </div>
+    </article>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head"><h2>Projects</h2><span class="mono">4 PUBLIC REPOS · 2026</span></div>
+    <div class="grid">
+
+      <article class="card">
+        <div class="shot"><img src="img/forecast.jpg" alt="One-month-ahead oil forecasts against actuals for six wells" loading="lazy"></div>
+        <div class="body">
+          <div class="meta"><span>Forecasting · real data</span><span>2026</span></div>
+          <h3>Oil Well Production Forecasting</h3>
+          <p>Monthly oil forecasts for 6,656 Bakken wells, 1, 3 and 6 months ahead, from 105 public regulatory files (404,248 well-months).</p>
+          <div class="result">Gradient boosting cut error by <b>21%, 36% and 49%</b> against a "same as last month" forecast at 1, 3 and 6 months ahead, on a held-out 2025–2026 test period.</div>
+          <details>
+            <summary>How I built it</summary>
+            <dl>
+              <dt>Data</dt><dd>2 million raw rows from the North Dakota DMR, validated for duplicates, invalid dates, negatives and impossible producing days. Every cleaning rule is counted in a report; outliers are flagged, not deleted.</dd>
+              <dt>Method</dt><dd>37 leakage-safe features (a unit test proves no future data leaks in), one model per horizon, compared with naive, moving average, decline and Arps baselines. Time-based split plus a 5-window rolling backtest.</dd>
+              <dt>Honest limitation</dt><dd>Downtime months are 9.6% of test rows but 17.6% of the error, and the model can't see them coming.</dd>
+            </dl>
+          </details>
+          <div class="links"><a href="https://github.com/YoussefSabry2005/bakken-oil-production-forecasting">View code →</a></div>
+          <div class="chips"><span class="chip">Python</span><span class="chip">scikit-learn</span><span class="chip">SQL</span><span class="chip">pandas</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="shot"><img src="img/dashboard.jpg" alt="Operations dashboard overview with production KPIs" loading="lazy"></div>
+        <div class="body">
+          <div class="meta"><span>Analytics · AI agent</span><span>2026</span></div>
+          <h3>Operations Dashboard with an AI Analytics Agent</h3>
+          <p>A pipeline, star schema and 8-view dashboard for 48 simulated wells, plus an agent that answers plain-language questions with the evidence shown.</p>
+          <div class="result">The agent uses <b>14 tools and read-only SQL</b>, and a grounding check throws out any number that isn't in the evidence. <b>203 automated tests.</b></div>
+          <details>
+            <summary>How I built it</summary>
+            <dl>
+              <dt>Pipeline</dt><dd>A deliberately messy extract cleaned into 45,004 well-days with 10 documented rules and a reconciliation report, modelled as a star schema (1 fact, 5 dimensions) and analysed with 14 SQL queries.</dd>
+              <dt>Safety</dt><dd>Static SQL validation, a read-only connection, an SQLite authorizer allow-list, and time and row limits. It also says so when a question can't be answered from the data.</dd>
+              <dt>Note</dt><dd>All data is simulated; the project demonstrates the method.</dd>
+            </dl>
+          </details>
+          <div class="links"><a href="https://github.com/YoussefSabry2005/oilfield-operations-dashboard">View code →</a></div>
+          <div class="chips"><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Streamlit</span><span class="chip">Plotly</span><span class="chip">Claude API</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="shot"><img src="img/maintenance.jpg" alt="Equipment ranked by predicted 72-hour failure risk" loading="lazy"></div>
+        <div class="body">
+          <div class="meta"><span>Risk modelling</span><span>2026</span></div>
+          <h3>Predictive Maintenance for Oil Field Equipment</h3>
+          <p>Ranks 60 simulated pumps, motors and compressors by their risk of failing in the next 72 hours, from a year of hourly sensor readings.</p>
+          <div class="result">Flagged <b>31 of 38 failures</b> with a median <b>50 hours</b> of warning. PR-AUC 0.50 against a 0.022 no-skill level.</div>
+          <details>
+            <summary>How I built it</summary>
+            <dl>
+              <dt>Method</dt><dd>Leakage-safe, unit-normalised rolling features; logistic regression, random forest and gradient boosting chosen by walk-forward validation with purge gaps.</dd>
+              <dt>Checked</dt><dd>Replicated on three freshly simulated fleets never used in development (PR-AUC 0.59–0.62).</dd>
+              <dt>Honest limitation</dt><dd>Fewer than half of the strongest flags (46%) were followed by a failure. It's a prioritisation aid, not an alarm.</dd>
+            </dl>
+          </details>
+          <div class="links"><a href="https://github.com/YoussefSabry2005/oilfield-predictive-maintenance">View code →</a></div>
+          <div class="chips"><span class="chip">Python</span><span class="chip">scikit-learn</span><span class="chip">pandas</span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="shot"><img src="img/anomaly.jpg" alt="Live monitoring dashboard for a simulated sensor stream" loading="lazy"></div>
+        <div class="body">
+          <div class="meta"><span>Anomaly detection · streaming</span><span>2026</span></div>
+          <h3>Pipeline Sensor Anomaly Detection</h3>
+          <p>Compared four anomaly detectors on simulated pressure, flow and temperature data, then rebuilt the best as a streaming service with live alerts.</p>
+          <div class="result">Median <b>23 ms</b> end-to-end at 200 messages/s with <b>0 processing errors</b> over 34,558 messages. <b>126 automated tests.</b></div>
+          <details>
+            <summary>How I built it</summary>
+            <dl>
+              <dt>Batch study</dt><dd>Isolation Forest and LOF reached about twice the F1 of a per-sensor statistical baseline and caught 85–93% of simulated events.</dd>
+              <dt>Streaming</dt><dd>Producer, message log with offsets and replay, a micro-batched processor, structured alerts, latency monitoring, a live dashboard, and Docker files. Tests enforce that streaming scores match batch scores exactly.</dd>
+              <dt>Note</dt><dd>A local simulation on one machine; not connected to any real pipeline.</dd>
+            </dl>
+          </details>
+          <div class="links"><a href="https://github.com/YoussefSabry2005/pipeline-sensor-anomaly-detection">View code →</a></div>
+          <div class="chips"><span class="chip">Python</span><span class="chip">scikit-learn</span><span class="chip">Docker</span><span class="chip">Streamlit</span></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="small-grid">
+      <div class="mini">
+        <div class="kicker">Side project · Applied AI</div>
+        <h3>AI-Clipper</h3>
+        <p>Turns long videos into captioned vertical clips entirely on-device: Whisper speech-to-text, a local LLM (Ollama) that picks clips with JSON-schema output, face-tracked reframing with OpenCV, and a YouTube API upload queue.</p>
+      </div>
+      <div class="mini">
+        <div class="kicker">Research Assistant · MacEwan University · Sep 2026 – Present</div>
+        <h3>Consumer trust in Open Banking</h3>
+        <p>For an SSHRC-funded study, I built a verified library of 32 sources and 30 consent screens from four regions, and coded 13 real interfaces on 20+ dimensions to design a 2×2×2 experiment.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="sec-head"><h2>About</h2><span class="mono">EDMONTON, AB</span></div>
+    <div class="about">
+      <div>
+        <p>I like problems where the data is messy and someone is waiting on the answer. My approach: build something quickly, then prove it works with honest validation, tests and clear limits.</p>
+        <p>I use AI coding tools heavily and deliberately, the way a team would want: every change is reviewed, tested and owned by me.</p>
+        <p>Before data science I spent 15 years in competitive swimming and water polo (Heliopolis Sporting Club in Cairo, then the Edmonton Tsunami). I speak Arabic and English.</p>
+      </div>
+      <ul class="timeline">
+        <li><div class="when">Expected April 2028</div><div class="what">BSc, Data Science</div><div class="where">MacEwan University, Edmonton</div></li>
+        <li><div class="when">Sep 2026 – Present</div><div class="what">Research Assistant</div><div class="where">MacEwan University</div></li>
+        <li><div class="when">Apr 2025 – Present</div><div class="what">Operations Analyst &amp; Developer</div><div class="where">Town &amp; Country Pharmacy, Wetaskiwin</div></li>
+        <li><div class="when">Aug 2026</div><div class="what">IBM Machine Learning with Python</div><div class="where">Coursera certificate</div></li>
+        <li><div class="when">2023 – 2025</div><div class="what">Transfer coursework</div><div class="where">University of Manitoba</div></li>
+      </ul>
+    </div>
+    <div class="skills">
+      <div><h4>Languages</h4><p>Python · SQL · TypeScript · R</p></div>
+      <div><h4>ML &amp; Stats</h4><p>scikit-learn · gradient boosting · time series · anomaly detection · leakage-safe validation</p></div>
+      <div><h4>Applied AI</h4><p>LLM agents &amp; tool use · guardrails &amp; grounding · Ollama · Whisper</p></div>
+      <div><h4>Data &amp; Web</h4><p>PostgreSQL · Supabase · React · Streamlit · Plotly · Docker · Git</p></div>
+    </div>
+  </section>
+
+  <div class="contact">
+    <div>
+      <h2>Let's talk.</h2>
+      <p>I'm looking for Summer 2027 internships or 12–18 month co-ops in data science, analytics or software, in Edmonton, Calgary or Toronto.</p>
+    </div>
+    <div class="btns">
+      <a class="btn" href="mailto:moeinyam22@gmail.com">Email me</a>
+      <a class="btn ghost" href="Youssef_Moein_Resume.pdf">Resume</a>
+    </div>
+  </div>
+
+  <footer>
+    <span>© <span id="yr">2026</span> Youssef Moein</span>
+    <span><a href="https://github.com/YoussefSabry2005">GitHub</a> · <a href="https://www.linkedin.com/in/youssef-sabry22">LinkedIn</a> · <a href="mailto:moeinyam22@gmail.com">moeinyam22@gmail.com</a></span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var root=document.documentElement, KEY="ym-theme";
+  try{var s=localStorage.getItem(KEY); if(s) root.setAttribute("data-theme",s);}catch(e){}
+  document.getElementById("theme").addEventListener("click",function(){
+    var cur=root.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+    var next=cur==="dark"?"light":"dark"; root.setAttribute("data-theme",next);
+    try{localStorage.setItem(KEY,next);}catch(e){}
+  });
+  document.getElementById("yr").textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
