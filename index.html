@@ -99,6 +99,10 @@ section{padding:72px 0 0}
 .card:hover{transform:translateY(-3px)}
 .card .shot{aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--line);background:#fff}
 .card .shot img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.card.wide{grid-column:1/-1;flex-direction:row}
+.card.wide .shot{flex:1.15;aspect-ratio:auto;border-bottom:0;border-right:1px solid var(--line);display:flex;align-items:center}
+.card.wide .shot img{height:auto;object-fit:contain}
+.card.wide .body{flex:1}
 .card .body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
 .card .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
 .card h3{font-size:22px;margin-bottom:10px}
@@ -144,6 +148,8 @@ details dd{margin:2px 0 0;color:var(--muted)}
 footer{padding:36px 0 48px;color:var(--muted);font-size:13.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 @media (max-width:860px){
+  .card.wide{flex-direction:column}
+  .card.wide .shot{border-right:0;border-bottom:1px solid var(--line)}
   .hero,.feature,.about{grid-template-columns:1fr}
   .hero{padding:44px 0 40px;gap:32px}
   .portrait{justify-self:start;max-width:220px;order:-1}
@@ -232,8 +238,28 @@ footer{padding:36px 0 48px;color:var(--muted);font-size:13.5px;display:flex;just
   </section>
 
   <section id="projects">
-    <div class="sec-head"><h2>Projects</h2><span class="mono">4 PUBLIC REPOS · 2026</span></div>
+    <div class="sec-head"><h2>Projects</h2><span class="mono">5 PUBLIC REPOS · 2026</span></div>
     <div class="grid">
+
+      <article class="card wide">
+        <div class="shot"><img src="img/load.jpg" alt="Day-ahead forecasts of Alberta electricity demand for a January week, with an 80% forecast range" loading="lazy"></div>
+        <div class="body">
+          <div class="meta"><span>Deep learning · real data</span><span>2026</span></div>
+          <h3>Alberta Electricity Demand Forecasting</h3>
+          <p>Every morning at 10, forecast each hour of tomorrow's Alberta electricity demand, from real AESO load data and hourly Edmonton and Calgary temperatures (48,935 hours, 2020 to 2025).</p>
+          <div class="result">PyTorch models reached <b>1.30% error</b> on a held-out year: <b>54% lower</b> than the best naive rule and <b>25% lower</b> than ridge regression, with forecast ranges that held 78.8% of actual hours at an 80% target.</div>
+          <details>
+            <summary>How I built it</summary>
+            <dl>
+              <dt>Data</dt><dd>AESO hourly load joined to Open-Meteo temperatures, validated for duplicates, gaps and bad values. Alberta holidays, degree-hours and calendar features in local time.</dd>
+              <dt>Method</dt><dd>A PyTorch MLP and a GRU encoder-decoder, trained with pinball loss to output 10th, 50th and 90th percentiles, 3 seeds each and averaged. Compared with naive rules, ridge and gradient boosting on a chronological split; intervals calibrated with split conformal. A unit test scrambles all future load and proves no input changes.</dd>
+              <dt>Honest limitation</dt><dd>It uses observed temperature in place of a weather forecast. Adding realistic forecast error raised error by 3% to 11%, and the worst misses were extreme cold days like Family Day 2025 at −25 °C.</dd>
+            </dl>
+          </details>
+          <div class="links"><a href="https://github.com/YoussefMoein/alberta-load-forecasting">View code →</a></div>
+          <div class="chips"><span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">scikit-learn</span><span class="chip">pandas</span></div>
+        </div>
+      </article>
 
       <article class="card">
         <div class="shot"><img src="img/forecast.jpg" alt="One-month-ahead oil forecasts against actuals for six wells" loading="lazy"></div>
@@ -348,7 +374,7 @@ footer{padding:36px 0 48px;color:var(--muted);font-size:13.5px;display:flex;just
     </div>
     <div class="skills">
       <div><h4>Languages</h4><p>Python · SQL · TypeScript · R</p></div>
-      <div><h4>ML &amp; Stats</h4><p>scikit-learn · gradient boosting · time series · anomaly detection · leakage-safe validation</p></div>
+      <div><h4>ML &amp; Stats</h4><p>PyTorch · scikit-learn · gradient boosting · time series · anomaly detection · leakage-safe validation</p></div>
       <div><h4>Applied AI</h4><p>LLM agents &amp; tool use · guardrails &amp; grounding · Ollama · Whisper</p></div>
       <div><h4>Data &amp; Web</h4><p>PostgreSQL · Supabase · React · Streamlit · Plotly · Docker · Git</p></div>
     </div>
